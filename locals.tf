@@ -1,10 +1,8 @@
 locals {
   # Generic project prefix, to rename most components
   prefix                = "EB"    
-  # Atlas organization where to provsion a new group
-  organization_id       = "599ef70e9f78f769464e3729"
   # New empty Atlas project name to create in organization
-  project_id            = "AWS-Peered-project"
+  project_name           = "AWS-Peered-project"
   # Atlas region, https://docs.atlas.mongodb.com/reference/microsoft-azure/#microsoft-azure
   region                = "EU_WEST_1"
   # Atlas cluster name

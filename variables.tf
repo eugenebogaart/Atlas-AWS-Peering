@@ -3,6 +3,11 @@ variable "aws_account_id" {
   type = string
 }
 
+variable "organization_id" {
+  description = "Atlas organization"
+  type = string
+}
+
 variable "admin_password" {
   description = "Password for default users"
   type = string
@@ -21,3 +26,4 @@ variable "provisioning_address_cdr" {
   description = "SSH firewall source address, home/office !?"
   type = string
 }
+
