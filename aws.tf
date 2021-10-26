@@ -10,22 +10,28 @@ resource "aws_vpc" "vpc" {
   instance_tenancy = "default"
 
   tags = local.tags
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 resource "aws_subnet" "subnet1" {
   vpc_id = aws_vpc.vpc.id
   cidr_block = local.aws_subnet1_cidr_block
  
-  tags = merge(
-    local.tags, 
-    { 
-      Name = "${local.prefix}-terraform-provisioned"
-    })
+  tags = local.tags
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 resource "aws_internet_gateway" "main_gw" {
   vpc_id = aws_vpc.vpc.id
-  tags = local.tags 
+  
+  tags = local.tags
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 resource "aws_route_table" "main_route" {
@@ -41,6 +47,9 @@ resource "aws_route_table" "main_route" {
     }
 
   tags = local.tags
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 resource "aws_route_table_association" "main-subnet" {
@@ -65,6 +74,9 @@ resource "aws_security_group" "main" {
   }
 
   tags = local.tags
+  lifecycle {
+    ignore_changes = [tags]
+  }
 }
 
 resource "aws_vpc_peering_connection_accepter" "peer" {
@@ -114,14 +126,17 @@ resource "aws_instance" "web" {
     user        = "ubuntu"
   }
 
-  tags = {
-    OwnerContact = "eugene@mongodb.com"
-    Name = local.aws_ec2_name
-    provisioner = "Terraform"
-    owner = "eugene.bogaart"
-    expire-on = "2021-11-11"
-    purpose = "opportunity"
+  tags = merge(
+    local.tags,
+    {
+      Name = local.aws_ec2_name
+    })
+
+  lifecycle {
+    ignore_changes = [tags, ebs_block_device]
+    create_before_destroy = true
   }
+
 }
 
 output "Virtual_Machine_Address" {
