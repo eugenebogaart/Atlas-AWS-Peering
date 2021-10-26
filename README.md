@@ -78,6 +78,11 @@ variable "aws_account_id" {
   type = string
 }
 
+variable "organization_id" {
+  description = "Atlas organization"
+  type = string
+}
+
 variable "admin_password" {
   description = "Password for default users"
   type = string
@@ -92,7 +97,7 @@ variable "private_key_path" {
   type = string
 }
 
-variable "provisoning_address_cdr" {
+variable "provisioning_address_cdr" {
   description = "SSH firewall source address, home/office !?"
   type = string
 }
@@ -105,10 +110,8 @@ In the locals resource of the locals.tf file, several parameters should be adapt
 locals {
   # Generic project prefix, to rename most components
   prefix                = "EB"    
-  # Atlas organization where to provsion a new group
-  organization_id       = "599ef70e9f78f769464e3729"
   # New empty Atlas project name to create in organization
-  project_id            = "AWS-Peered-project"
+  project_name            = "AWS-Peered-project"
   # Atlas region, https://docs.atlas.mongodb.com/reference/microsoft-azure/#microsoft-azure
   region                = "EU_WEST_1"
   # Atlas cluster name
