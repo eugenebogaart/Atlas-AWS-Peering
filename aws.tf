@@ -61,7 +61,7 @@ resource "aws_security_group" "main" {
     to_port = 22
     protocol = "tcp"   
     // Put your office or home address in it!
-    cidr_blocks = [ local.provisoning_address_cdr ]
+    cidr_blocks = [ var.provisioning_address_cdr ]
   }
 
   tags = local.tags

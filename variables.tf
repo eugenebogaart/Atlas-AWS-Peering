@@ -17,7 +17,7 @@ variable "private_key_path" {
   type = string
 }
 
-variable "provisoning_address_cdr" {
+variable "provisioning_address_cdr" {
   description = "SSH firewall source address, home/office !?"
   type = string
 }
